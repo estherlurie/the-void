@@ -14,9 +14,7 @@
 	"dependencies": {
 		"@prisma/client": "^5.11.0",
 		"@sveltejs/adapter-vercel": "^5.2.0",
-		"vercel": "^33.6.2"
-	},
-	"optionalDependencies": {
+		"vercel": "^33.6.2",
 		"@esbuild/linux-x64": "*",
 		"@rollup/rollup-linux-x64-gnu": "^4.13.2",
 		"@sveltejs/kit": "^2.0.0",
