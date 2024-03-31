@@ -12,7 +12,8 @@
 		"format": "prettier --write ."
 	},
 	"dependencies": {
-		"@prisma/client": "^5.11.0"
+		"@prisma/client": "^5.11.0",
+		"@sveltejs/adapter-vercel": "^5.2.0"
 	},
 	"optionalDependencies": {
 		"@esbuild/linux-x64": "*",
@@ -38,5 +39,4 @@
 		"vite": "^5.2.7"
 	},
 	"type": "module"
-	
 }
