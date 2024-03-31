@@ -11,6 +11,12 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write ."
 	},
+	"dependencies": {
+		"@prisma/client": "^5.11.0"
+	},
+	"optionalDependencies": {
+		"@rollup/rollup-linux-x64-gnu": "^4.13.2"
+	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
@@ -31,7 +37,5 @@
 		"vite": "^5.2.7"
 	},
 	"type": "module",
-	"dependencies": {
-		"@prisma/client": "^5.11.0"
-	}
+	
 }
