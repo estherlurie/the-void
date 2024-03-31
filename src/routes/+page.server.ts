@@ -6,6 +6,7 @@ export const actions = {
 	new_post: async ({ cookies, request }) => {
     const data = await request.formData();
     const text = data.get('text');
+
     await prisma.posts.create({
       data: {
         user_id: 1,
