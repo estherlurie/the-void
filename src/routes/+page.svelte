@@ -1,2 +1,18 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+  import Post from '$lib/components/Post.svelte'
+  import type { PageData } from './$types'
+
+  export let data: PageData
+</script>
+
+<div>
+  <h1>The Void</h1>
+  <button onClick="window.location.href=window.location.href">Refresh Page</button>
+  <main>
+    <div>
+      {#each data.feed as post (post.id)}
+        <Post {post} />
+      {/each}
+    </div>
+  </main>
+</div>
