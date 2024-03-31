@@ -8,15 +8,15 @@ datasource db {
 }
 
 model posts {
-  id          Int      @id @default(autoincrement())
-  user_id     Int
-  text        String
-  create_time DateTime @default(now())
-  users       users?   @relation(fields: [user_id], references: [id])
+  id          Int       @id @default(autoincrement())
+  user_id     Int?
+  text        String?
+  create_time DateTime? @default(dbgenerated("timezone('utc'::text, now())")) @db.Timestamp(6)
+  users       users?    @relation(fields: [user_id], references: [id])
 }
 
 model users {
   id    Int     @id @default(autoincrement())
-  name  String
+  name  String?
   posts posts[]
 }
