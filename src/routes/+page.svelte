@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Post from '$lib/components/Post.svelte';
 	import NewPost from '$lib/components/NewPost.svelte';
+
 	import type { PageData } from './$types';
 
 	export let data: PageData;
