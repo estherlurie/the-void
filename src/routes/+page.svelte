@@ -1,5 +1,6 @@
 <script lang="ts">
   import Post from '$lib/components/Post.svelte'
+  import NewPost from '$lib/components/NewPost.svelte'
   import type { PageData } from './$types'
 
   export let data: PageData
@@ -9,6 +10,7 @@
   <h1>The Void</h1>
   <button onClick="window.location.href=window.location.href">Refresh Page</button>
   <main>
+    <NewPost />
     <div>
       {#each data.feed as post (post.id)}
         <Post {post} />

@@ -1,16 +1,15 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import type { PageData } from "./$types";
-
-  export let post: PageData;
 </script>
 
-<div class="post" on:click={() => goto(`/p/${post.id}`)}>
-  <small>@{post.users.name}</small>
-  <p>{post.text}</p>
-  <small>
-    {post.create_time.toLocaleString()} 
-  </small>
+<div>
+  <form method="POST" action="/?/new_post">
+    <label>
+      New Post
+      <input name="text" placeholder="blah blah" />
+    </label>
+    <button>Submit</button>
+  </form>
 </div>
 
 <style>
