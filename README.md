@@ -1,4 +1,5 @@
 # The Void
+
 Disappearing Twitter. Hyper-local.
 
 For now, database only works on Esti's computer.
@@ -6,6 +7,7 @@ For now, database only works on Esti's computer.
 ## Developing
 
 ### First Time
+
 ```bash
 npm install
 ```
