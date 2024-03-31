@@ -24,6 +24,9 @@ const load = async () => {
     },
     include: {
       users: true
+    },
+    orderBy: {
+      create_time: "desc"
     }
   });
   return { feed: response };

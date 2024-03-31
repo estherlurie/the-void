@@ -31,6 +31,9 @@ const response = await prisma.posts.findMany({
   include: {
     users: true
   },
+  orderBy: {
+    create_time: "desc"
+  }
 });
 
 // 2.
