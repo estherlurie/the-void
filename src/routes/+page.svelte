@@ -9,12 +9,12 @@
 
 <div class="frame">
 	<h1>The Void</h1>
-	<button onClick="window.location.href=window.location.href">Refresh Page</button>
 	<main>
+		<button onClick="window.location.href=window.location.href">Refresh Page</button>
 		<NewPost />
 		<div>
 			{#each data.feed as post (post.id)}
-				<Post {post} />
+				<Post {post} threshold_hours={data.threshold_hours} />
 			{/each}
 		</div>
 	</main>

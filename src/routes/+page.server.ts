@@ -1,6 +1,8 @@
 import prisma from '$lib/prisma';
 import type { PageServerLoad } from './$types';
 
+const DISPLAY_HOURS_AGO = 6;
+
 async function sign_up(username: any): number {
 	console.log('sign up username=' + username);
 	const sign_up_res = await prisma.users.create({
@@ -57,8 +59,7 @@ export const actions = {
 export const load = (async ({}) => {
 	// 1.
 	let void_threshold = new Date();
-	const hours_ago = 6;
-	void_threshold.setHours(void_threshold.getHours() - hours_ago);
+	void_threshold.setHours(void_threshold.getHours() - DISPLAY_HOURS_AGO);
 
 	const response = await prisma.posts.findMany({
 		where: {
@@ -75,5 +76,5 @@ export const load = (async ({}) => {
 	});
 
 	// 2.
-	return { feed: response };
+	return { feed: response, threshold_hours: DISPLAY_HOURS_AGO };
 }) satisfies PageServerLoad;

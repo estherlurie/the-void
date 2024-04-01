@@ -3,13 +3,24 @@
 
 	export let post: PageData;
 	export let username;
+	export let threshold_hours: number;
+
+	const time_left_min = (create_time: Date): number => {
+		const now = new Date();
+		const elapsed_ms = now.getTime() -  create_time.getTime();
+		const threshold_ms = threshold_hours * 60 * 60 * 1000;
+		const time_left_ms = threshold_ms - elapsed_ms;
+		const time_left_min = time_left_ms / 1000 / 60;
+		return Math.round(time_left_min);
+
+	};
 </script>
 
 <div class="post">
 	<small>@{post.users.name}</small>
 	<p>{post.text}</p>
 	<small>
-		{post.create_time.toLocaleString()}
+		{time_left_min(post.create_time)} minutes left
 	</small>
 </div>
 
