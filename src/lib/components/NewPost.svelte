@@ -1,11 +1,14 @@
 <script lang="ts">
+	export let username: any;
 </script>
 
 <div>
+	<input bind:value={username} placeholder="enter your name" />
+	<p>Hello {username || 'stranger'}!</p>
 	<form method="POST" action="/?/new_post">
 		<label>
 			New Post
-			<input name="text" placeholder="blah blah" />
+			<input name="text" placeholder="stranger"/>
 		</label>
 		<button>Submit</button>
 	</form>

@@ -3,14 +3,14 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model posts {
   id          Int       @id @default(autoincrement())
-  user_id     Int?
+  user_id     Int
   text        String?
   create_time DateTime? @default(dbgenerated("timezone('utc'::text, now())")) @db.Timestamp(6)
   users       users?    @relation(fields: [user_id], references: [id])
@@ -20,10 +20,4 @@ model users {
   id    Int     @id @default(autoincrement())
   name  String?
   posts posts[]
-}
-
-model passwords {
-  id       Int    @id @default(autoincrement())
-  user_id  Int    @unique
-  password String
 }
