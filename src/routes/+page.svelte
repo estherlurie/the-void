@@ -22,7 +22,5 @@
 
 <style>
 	div {
-		color: white;
-		background: black;
 	}
 </style>

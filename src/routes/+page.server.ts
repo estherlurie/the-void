@@ -54,7 +54,7 @@ export const actions = {
 	}
 };
 
-export const load = (async ({ cookies }) => {
+export const load = (async ({}) => {
 	// 1.
 	let void_threshold = new Date();
 	const hours_ago = 2;
