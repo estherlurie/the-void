@@ -13,6 +13,25 @@ export const actions = {
 				text: text
 			}
 		});
+	},
+
+	sign_in_or_up: async ({ cookies, request }) => {
+		const data = await request.formData();
+		const text = data.get('text');
+		const user = await prisma.users.findOne({
+			where: {
+				name: text
+			}
+		});
+		if (!user) {
+			const sign_up_res = await prisma.users.create({
+				data: {
+					name: text
+				}
+			})
+		} else {
+
+		}
 	}
 };
 
