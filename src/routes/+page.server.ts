@@ -2,18 +2,23 @@ import prisma from '$lib/prisma';
 import type { PageServerLoad } from './$types';
 
 async function sign_up(username: any): number {
-		console.log('sign up username=' + username)
-		const sign_up_res = await prisma.users.create({
-			data: {
-				name: username
-			}
-		})
-		console.log(sign_up_res);
+	console.log('sign up username=' + username);
+	const sign_up_res = await prisma.users.create({
+		data: {
+			name: username
+		}
+	});
+	console.log('signupres=');
+	console.log(sign_up_res);
 }
 
-async function get_user_id(username: String): Promise<number|null> {
-	const user = await prisma.users.findFirst({where:{name:username}});
-	if (user && user.id) { return user.id } else { return null; }
+async function get_user_id(username: String): Promise<number | null> {
+	const user = await prisma.users.findFirst({ where: { name: username } });
+	if (user && user.id) {
+		return user.id;
+	} else {
+		return null;
+	}
 }
 
 /** @type {import('./$types').Actions} */
@@ -21,20 +26,23 @@ export const actions = {
 	new_post: async ({ cookies, request }) => {
 		const data = await request.formData();
 		const username = data.get('username');
-    console.log("about to find user = " + username)
-		let user = await prisma.users.findFirst({where: {name: username}});
-		let user_id: number|null;
+
+		console.log('about to find user = ' + username);
+		let user = await prisma.users.findFirst({ where: { name: username } });
+
 		if (!user) {
-			console.log("No user found")
-			sign_up(cookies.get('username'));
+			console.log('No user found');
+			sign_up(username);
+			const delay_ms = 50;
+			await new Promise((resolve) => setTimeout(resolve, delay_ms));
 		}
-		console.log("getting user_id ");
-		user_id = await get_user_id(username);
+		console.log('getting user_id ');
+		const user_id = await get_user_id(username);
 		if (!user_id) {
-			console.log("No user_id, not posting");
+			console.log('No user_id, not posting');
 			return;
 		}
-		console.log("user_id=" + user_id);
+		console.log('user_id=' + user_id);
 
 		const text = data.get('text');
 		await prisma.posts.create({
@@ -43,10 +51,10 @@ export const actions = {
 				text: text
 			}
 		});
-	},
+	}
 };
 
-export const load = (async ({cookies}) => {
+export const load = (async ({ cookies }) => {
 	// 1.
 	let void_threshold = new Date();
 	const hours_ago = 2;

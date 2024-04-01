@@ -1,14 +1,17 @@
 <script lang="ts">
-	export let username: any;
+	import { store } from '$lib/store';
+
+	let username = '';
 </script>
 
 <div>
-	<input bind:value={username} placeholder="enter your name" />
-	<p>Hello {username || 'stranger'}!</p>
 	<form method="POST" action="/?/new_post">
+		<input bind:value={username} placeholder="enter your name" />
+		<p>Hello {username || 'stranger'}!</p>
 		<label>
 			New Post
-			<input name="text" placeholder="stranger"/>
+			<input name="text" placeholder="stranger" />
+			<input type="hidden" name="username" value={username} />
 		</label>
 		<button>Submit</button>
 	</form>
