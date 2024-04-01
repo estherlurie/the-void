@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { store } from '$lib/store';
-
 	let username = '';
 </script>
 
