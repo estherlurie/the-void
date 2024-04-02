@@ -56,9 +56,9 @@ export const actions = {
 	}
 };
 
-export const load = (async ({}) => {
+export const load = (async ({ }) => {
 	// 1.
-	let void_threshold = new Date();
+	const void_threshold = new Date();
 	void_threshold.setHours(void_threshold.getHours() - DISPLAY_HOURS_AGO);
 
 	const response = await prisma.posts.findMany({
