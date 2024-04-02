@@ -56,7 +56,7 @@ export const actions = {
 	}
 };
 
-export const load = (async ({ }) => {
+export const load = (async ({}) => {
 	// 1.
 	const void_threshold = new Date();
 	void_threshold.setHours(void_threshold.getHours() - DISPLAY_HOURS_AGO);
