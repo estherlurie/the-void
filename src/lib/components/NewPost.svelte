@@ -3,8 +3,8 @@
 </script>
 
 <div class="new-post">
+	<h3 class="new-post-title">New Post</h3>
 	<form method="POST" action="/?/new_post">
-		<h3>New Post</h3>
 		<input bind:value={username} placeholder="enter your name" />
 		<p>Hello {username || 'stranger'}!</p>
 		<label>
@@ -22,7 +22,7 @@
 	}
 	.new-post {
 		margin: auto;
-		width: 20%;
+		width: 45%;
 		transition: box-shadow 0.1s ease-in;
 		border: solid;
 	}
@@ -35,5 +35,9 @@
 	.new-post,
 	.new-post {
 		margin-top: 2rem;
+	}
+
+	.new-post-title {
+		margin: auto;
 	}
 </style>
