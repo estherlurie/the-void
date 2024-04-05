@@ -8,9 +8,11 @@
 </script>
 
 <div class="frame">
-	<h1>The Void</h1>
-	<main>
+	<div class="header">
+		<h1>The Void</h1>
 		<button onClick="window.location.href=window.location.href">Refresh Page</button>
+	</div>
+	<main>
 		<NewPost />
 		<div>
 			{#each data.feed as post (post.id)}
@@ -21,6 +23,8 @@
 </div>
 
 <style>
-	div {
+	.header {
+		margin: auto;
+		text-align: center;
 	}
 </style>
