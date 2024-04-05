@@ -2,7 +2,6 @@
 	import type { PageData } from './$types';
 
 	export let post: PageData;
-	export let username;
 	export let threshold_hours: number;
 
 	const time_left_min = (create_time: Date): number => {

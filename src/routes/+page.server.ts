@@ -1,7 +1,7 @@
 import prisma from '$lib/prisma';
 import type { PageServerLoad } from './$types';
 
-const DISPLAY_HOURS_AGO = 6;
+const DISPLAY_HOURS_AGO = 24;
 
 async function sign_up(username: any): number {
 	console.log('sign up username=' + username);

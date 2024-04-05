@@ -10,6 +10,7 @@
 <div class="frame">
 	<div class="header">
 		<h1>The Void</h1>
+		<p>Posts will disappear in {data.threshold_hours} hours. Refresh to see latest posts.</p>
 		<button onClick="window.location.href=window.location.href">Refresh Page</button>
 	</div>
 	<main>
