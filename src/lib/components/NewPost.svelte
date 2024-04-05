@@ -4,7 +4,7 @@
 
 <div class="new-post">
 	<h3 class="new-post-title">New Post</h3>
-	<form method="POST" action="/?/new_post">
+	<form method="POST" action="?/new_post">
 		<input bind:value={username} placeholder="enter your name" />
 		<p>Hello {username || 'stranger'}!</p>
 		<label>

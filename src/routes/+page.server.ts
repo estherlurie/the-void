@@ -1,5 +1,6 @@
 import prisma from '$lib/prisma';
 import type { PageServerLoad } from './$types';
+import { redirect } from '@sveltejs/kit';
 
 const DISPLAY_HOURS_AGO = 24;
 
@@ -53,6 +54,8 @@ export const actions = {
 				text: text
 			}
 		});
+
+		redirect(302, '/');
 	}
 };
 
