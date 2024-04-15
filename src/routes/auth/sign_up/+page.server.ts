@@ -1,5 +1,8 @@
 import prisma from '$lib/prisma';
 import { getSupportInfo } from 'prettier';
+import { redirect } from '@sveltejs/kit';
+
+import { SignUpError } from './types';
 
 export const actions = {
 	default: async (event) => {
@@ -8,15 +11,15 @@ export const actions = {
 		const password = data.get('password');
 
 		if (username.length == 0) {
-			return { error: 'Empty username' };
+			return { success: false, error: SignUpError.EmptyUsername };
 		}
 		if (password.length == 0) {
-			return { error: 'Empty password' };
+			return { success: false, error: SignUpError.EmptyPassword };
 		}
 
 		const user = await prisma.users.findFirst({ where: { name: username } });
 		if (user) {
-			return { already_exists: true };
+			return { success: false, error: SignUpError.AlreadyExists };
 		}
 
 		const sign_up_res = await prisma.users.create({
@@ -32,6 +35,7 @@ export const actions = {
 			}
 		});
 
-		console.log('password_res');
+		console.log(password_res);
+		return { success: true, data: username};
 	}
 };
