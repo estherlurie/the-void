@@ -21,3 +21,9 @@ model users {
   name  String?
   posts posts[]
 }
+
+model passwords {
+  id       Int    @id @default(autoincrement())
+  user_id  Int
+  password String
+}

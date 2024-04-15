@@ -2,6 +2,7 @@
 	import Post from '$lib/components/Post.svelte';
 	import NewPost from '$lib/components/NewPost.svelte';
 	import type { PageData } from './$types';
+	import { goto } from '$app/navigation';
 
 	// props
 	export let data: PageData;
@@ -27,5 +28,8 @@
 	.header {
 		margin: auto;
 		text-align: center;
+	}
+	.warning {
+		color: RED;
 	}
 </style>

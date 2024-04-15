@@ -11,8 +11,6 @@ async function sign_up(username: any): number {
 			name: username
 		}
 	});
-	console.log('signupres=');
-	console.log(sign_up_res);
 }
 
 async function get_user_id(username: String): Promise<number | null> {
@@ -55,11 +53,18 @@ export const actions = {
 			}
 		});
 
-		redirect(302, '/');
+		redirect(307, '/');
 	}
 };
 
 export const load = (async ({}) => {
+	// Auth
+	let authenticated = false;
+	// TODO AUTH
+	if (!authenticated) {
+		redirect(307, '/auth');
+	}
+
 	// 1.
 	const void_threshold = new Date();
 	void_threshold.setHours(void_threshold.getHours() - DISPLAY_HOURS_AGO);
