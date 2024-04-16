@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-
 	/** @type {import('./$types').PageData} */
 	export let data;
 
@@ -22,8 +20,9 @@
 		}
 	}
 
+	import { redirect } from '@sveltejs/kit';
 	function handle_success() {
-		goto('/void');
+		redirect(308, '/void');
 	}
 </script>
 
@@ -41,7 +40,7 @@
 		{#if form?.success}
 			<!-- this message is ephemeral; it exists because the page was rendered in
 		   response to a form submission. it will vanish if the user reloads -->
-			{handleSuccess()}
+			{handle_success()}
 		{:else if form?.error}
 			<p>Error: {handle_error(form?.error)}</p>
 		{/if}

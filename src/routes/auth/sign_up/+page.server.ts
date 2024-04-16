@@ -1,6 +1,5 @@
 import prisma from '$lib/prisma';
 import { getSupportInfo } from 'prettier';
-import { redirect } from '@sveltejs/kit';
 
 import { SignUpError } from './types';
 

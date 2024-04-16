@@ -1,7 +1,5 @@
 import prisma from '$lib/prisma';
 import { getSupportInfo } from 'prettier';
-import { redirect } from '@sveltejs/kit';
-
 import { AuthError } from './types';
 
 export const actions = {
@@ -29,7 +27,7 @@ export const actions = {
 			}
 		});
 
-		console.log("HERE ESTI\n")
+		console.log('HERE ESTI\n');
 		console.log(sign_in_res);
 		if (!sign_in_res) {
 			return { success: false, error: AuthError.IncorrectPassword };

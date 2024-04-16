@@ -58,12 +58,30 @@ export const actions = {
 };
 
 export const load = (async ({}) => {
-	// Auth
-	let authenticated = false;
 	// TODO AUTH
+	let authenticated = true;
 	if (!authenticated) {
 		redirect(307, '/auth');
-	} else {
-		redirect(307, 'void');
 	}
+
+	// 1.
+	const void_threshold = new Date();
+	void_threshold.setHours(void_threshold.getHours() - DISPLAY_HOURS_AGO);
+
+	const response = await prisma.posts.findMany({
+		where: {
+			create_time: {
+				gt: void_threshold
+			}
+		},
+		include: {
+			users: true
+		},
+		orderBy: {
+			create_time: 'desc'
+		}
+	});
+
+	// 2.
+	return { feed: response, threshold_hours: DISPLAY_HOURS_AGO };
 }) satisfies PageServerLoad;
