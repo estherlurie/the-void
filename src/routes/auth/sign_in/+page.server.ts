@@ -2,7 +2,7 @@ import prisma from '$lib/prisma';
 import { getSupportInfo } from 'prettier';
 import { redirect } from '@sveltejs/kit';
 
-import { SignUpError } from './types';
+import { AuthError } from './types';
 
 export const actions = {
 	default: async (event) => {
@@ -11,31 +11,30 @@ export const actions = {
 		const password = data.get('password');
 
 		if (username.length == 0) {
-			return { success: false, error: SignUpError.EmptyUsername };
+			return { success: false, error: AuthError.EmptyUsername };
 		}
 		if (password.length == 0) {
-			return { success: false, error: SignUpError.EmptyPassword };
+			return { success: false, error: AuthError.EmptyPassword };
 		}
 
 		const user = await prisma.users.findFirst({ where: { name: username } });
-		if (user) {
-			return { success: false, error: SignUpError.AlreadyExists };
+		if (!user) {
+			return { success: false, error: AuthError.DoesNotExist };
 		}
 
-		const sign_up_res = await prisma.users.create({
-			data: {
-				name: username
-			}
-		});
-
-		const password_res = await prisma.passwords.create({
-			data: {
-				user_id: sign_up_res.id,
+		const sign_in_res = await prisma.passwords.findFirst({
+			where: {
+				user_id: user.id,
 				password: password
 			}
 		});
 
-		console.log(password_res);
+		console.log("HERE ESTI\n")
+		console.log(sign_in_res);
+		if (!sign_in_res) {
+			return { success: false, error: AuthError.IncorrectPassword };
+		}
+
 		return { success: true, data: username };
 	}
 };
