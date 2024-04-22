@@ -4,16 +4,21 @@ import { redirect } from '@sveltejs/kit';
 
 const DISPLAY_HOURS_AGO = 24;
 
-async function sign_up(username: any): number {
+async function sign_up(username: string): Promise<number> {
 	console.log('sign up username=' + username);
 	const sign_up_res = await prisma.users.create({
 		data: {
 			name: username
 		}
 	});
+
+	if (!sign_up_res) {
+		return -1;
+	}
+	return 0;
 }
 
-async function get_user_id(username: String): Promise<number | null> {
+async function get_user_id(username: string): Promise<number | null> {
 	const user = await prisma.users.findFirst({ where: { name: username } });
 	if (user && user.id) {
 		return user.id;
@@ -24,12 +29,12 @@ async function get_user_id(username: String): Promise<number | null> {
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-	new_post: async ({ cookies, request }) => {
+	new_post: async ({ request }) => {
 		const data = await request.formData();
 		const username = data.get('username');
 
 		console.log('about to find user = ' + username);
-		let user = await prisma.users.findFirst({ where: { name: username } });
+		const user = await prisma.users.findFirst({ where: { name: username } });
 
 		if (!user) {
 			console.log('No user found');
@@ -53,14 +58,17 @@ export const actions = {
 			}
 		});
 
-		redirect(307, '/');
+		redirect(303, '/void');
 	}
 };
 
-export const load = (async ({}) => {
+export const load = (async ({ cookies }) => {
 	// TODO AUTH
-	let authenticated = true;
-	if (!authenticated) {
+	console.log('HELLO FROM VOID');
+	const session = cookies.get('session', { path: '/' });
+	console.log('Session: ' + session);
+	if (!session) {
+		console.log('not authenticated, redirect to auth');
 		redirect(307, '/auth');
 	}
 
@@ -83,5 +91,5 @@ export const load = (async ({}) => {
 	});
 
 	// 2.
-	return { feed: response, threshold_hours: DISPLAY_HOURS_AGO };
+	return { feed: response, threshold_hours: DISPLAY_HOURS_AGO, username: session };
 }) satisfies PageServerLoad;

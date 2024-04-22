@@ -1,8 +1,8 @@
 <script lang="ts">
+	console.log('LOADING SVELTE - VOID');
 	import Post from '$lib/components/Post.svelte';
 	import NewPost from '$lib/components/NewPost.svelte';
 	import type { PageData } from './$types';
-	import { goto } from '$app/navigation';
 
 	// props
 	export let data: PageData;
@@ -11,6 +11,7 @@
 <div class="frame">
 	<div class="header">
 		<h1>The Void</h1>
+		<p>Hello, {data.username}.</p>
 		<p>Posts will disappear in {data.threshold_hours} hours. Refresh to see latest posts.</p>
 		<button onClick="window.location.href=window.location.href">Refresh Page</button>
 	</div>

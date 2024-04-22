@@ -1,12 +1,14 @@
 <script lang="ts">
+	import { redirect } from '@sveltejs/kit';
+	import { AuthError } from './types';
+	import type { ActionData } from './$types';
+
+	// Props
 	/** @type {import('./$types').PageData} */
 	export let data;
+	export let form: ActionData;
 
-	/** @type {import('./$types').ActionData} */
-	export let form;
-
-	import { AuthError } from './types';
-
+	// Methods
 	function handle_error(error: AuthError) {
 		switch (error) {
 			case AuthError.DoesNotExist:
@@ -20,14 +22,14 @@
 		}
 	}
 
-	import { redirect } from '@sveltejs/kit';
 	function handle_success() {
-		redirect(308, '/void');
+		console.log('REDIRECTING TO HOME');
+		redirect(307, '/void');
 	}
 </script>
 
 <div class="frame">
-	<div class="sign-in-form">
+	<div>
 		<form method="POST">
 			<label for="username">Username</label>
 			<input name="username" type="text" placeholder="username" />
@@ -40,7 +42,7 @@
 		{#if form?.success}
 			<!-- this message is ephemeral; it exists because the page was rendered in
 		   response to a form submission. it will vanish if the user reloads -->
-			{handle_success()}
+			<h1><a href="/void">Enter the void.</a></h1>
 		{:else if form?.error}
 			<p>Error: {handle_error(form?.error)}</p>
 		{/if}
@@ -53,8 +55,5 @@
 		text-align: center;
 		color: inherit;
 		display: block;
-	}
-
-	.sign-in-form {
 	}
 </style>

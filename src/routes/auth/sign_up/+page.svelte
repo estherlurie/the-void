@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { redirect } from '@sveltejs/kit';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -9,7 +9,7 @@
 
 	import { SignUpError } from './types';
 
-	function handle_error(error: SignUpError) {
+	function handle_error(error: SignUpError, response) {
 		switch (error) {
 			case SignUpError.AlreadyExists:
 				return 'Account exists already!';
@@ -17,7 +17,15 @@
 				return 'Empty username';
 			case SignUpError.EmptyPassword:
 				return 'Empty password';
+			case SignUpError.Database:
+				console.log(response);
+				return 'Database error, check logs';
 		}
+	}
+
+	function handle_success() {
+		console.log('SIGN UP SUCCESS, REDIRECT TO HOME');
+		redirect(307, '/');
 	}
 </script>
 
@@ -35,9 +43,9 @@
 		{#if form?.success}
 			<!-- this message is ephemeral; it exists because the page was rendered in
 		   response to a form submission. it will vanish if the user reloads -->
-			{goto('/')}
+			{handle_success()}
 		{:else if form?.error}
-			<p>Error: {handle_error(form?.error)}</p>
+			<p>Error: {handle_error(form?.error, form?.response)}</p>
 		{/if}
 	</div>
 </div>

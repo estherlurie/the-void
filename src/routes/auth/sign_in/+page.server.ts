@@ -1,13 +1,13 @@
 import prisma from '$lib/prisma';
-import { getSupportInfo } from 'prettier';
 import { AuthError } from './types';
 
 export const actions = {
-	default: async (event) => {
-		const data = await event.request.formData();
+	default: async ({ cookies, request }) => {
+		const data = await request.formData();
 		const username = data.get('username');
 		const password = data.get('password');
 
+		// Validation
 		if (username.length == 0) {
 			return { success: false, error: AuthError.EmptyUsername };
 		}
@@ -27,12 +27,15 @@ export const actions = {
 			}
 		});
 
-		console.log('HERE ESTI\n');
-		console.log(sign_in_res);
 		if (!sign_in_res) {
 			return { success: false, error: AuthError.IncorrectPassword };
 		}
 
+		console.log('SUCCESSFUL SIGN IN, SETTING COOKIE');
+		// Successful sign in!
+		cookies.set('session', { username: username }, { path: '/', secure: false });
+		const session = cookies.get('session', { path: '/' });
+		console.log(session);
 		return { success: true, data: username };
 	}
 };
