@@ -24,6 +24,7 @@
 
 <style>
 	div {
+		font-size: inherit;
 		color: inherit;
 		padding: 2rem;
 	}
